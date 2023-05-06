@@ -102,4 +102,23 @@
   </div>
 </div>
 
+<script>
+  setInterval(chatNotification, 1000);
+  function chatNotification() {
+    let url = "{% url 'chat_notification' %}";
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        let chatNotificationBadge = document.getElementsByClassName("msg");
+
+        for (let i = 0; i < data.length; i++) {
+          chatNotificationBadge[i].innerText = data[i];
+        }
+      })
+      .catch((error) => console.log("Error: ", error));
+    console.log(url);
+  }
+</script>
+
 {% endblock %}
